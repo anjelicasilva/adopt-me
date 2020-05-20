@@ -44,11 +44,12 @@ class Favorite(db.Model):
     ___tablename__ = "favorites"
 
     favorite_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    dogs_id_list = db.Column()
+    dogs_id = db.Column(db.Integer, db.ForeignKey("favorites.dogs_id"))
+    user_id = db.Column(db.Integer, db.ForeignKey("favorites.users_id"))
 
-    def __repr__(self): 
+    # def __repr__(self): 
         
-       return f"User("{self.dogs_id_list}")"
+    #    return f"User("{self.dogs_id}")" # Review for later
 
 class Shelter(db.Model):
     """Store shelter information"""
@@ -62,11 +63,11 @@ class Shelter(db.Model):
 
     def __repr__(self): 
         
-        return f"Shelter("{self.shelter_name}", "{self.shelter_location}", \
+        return f"Shelter("{self.shelter_name}", "{self.shelter_location}",\
                 "{self.operation_hour}")"
 
 
-class DOG(db.Model):
+class Dog(db.Model):
     """Store dog information in each shelter"""
 
     __tablename__ = "dogs"
@@ -84,8 +85,8 @@ class DOG(db.Model):
 
     def __repr__(self): 
 
-        return f"DOG("{self.dog_breed}", "{self.dog_photo_url}", \
-                "{self.description}", "{self.gender}", "{self.gender}", \
+        return f"Dog("{self.dog_breed}", "{self.dog_photo_url}",\
+                "{self.description}", "{self.gender}", "{self.gender}",\
                 "{self.age}", "{self.fixed}")"
 
 

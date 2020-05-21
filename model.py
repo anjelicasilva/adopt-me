@@ -67,27 +67,27 @@ class Shelter(db.Model):
                 "{self.operation_hour}")"
 
 
-class Dog(db.Model):
-    """Store dog information in each shelter"""
+# class Dog(db.Model):
+#     """Store dog information in each shelter"""
 
-    __tablename__ = "dogs"
+#     __tablename__ = "dogs"
 
-    dog_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    shelter_id = db.Column(db.Integer, db.ForeignKey("shelters.shelter_id"))
-    dob_breed = db.Column(db.String(30), nullable=True, unique = True)
-    dog_photo_url = db.Column(db.String(1000), nullable=False)
-    description = db.Column(db.String(200), nullable=True)
-    gender = db.Column(db.String(30), nullable=True, unique = True)
-    age = db.Column(db.Integer, nullable=True)
-    fixed = db.Column(db.String(30), nullable=True, unique = True)
+#     dog_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+#     shelter_id = db.Column(db.Integer, db.ForeignKey("shelters.shelter_id"))
+#     dob_breed = db.Column(db.String(30), nullable=True, unique = True)
+#     dog_photo_url = db.Column(db.String(1000), nullable=False)
+#     description = db.Column(db.String(200), nullable=True)
+#     gender = db.Column(db.String(30), nullable=True, unique = True)
+#     age = db.Column(db.Integer, nullable=True)
+#     fixed = db.Column(db.String(30), nullable=True, unique = True)
 
-    shelters = db.relationship("Shelter", backref="dogs")
+#     shelters = db.relationship("Shelter", backref="dogs")
 
-    def __repr__(self): 
+#     def __repr__(self): 
 
-        return f"Dog("{self.dog_breed}", "{self.dog_photo_url}",\
-                "{self.description}", "{self.gender}", "{self.gender}",\
-                "{self.age}", "{self.fixed}")"
+#         return f"Dog("{self.dog_breed}", "{self.dog_photo_url}",\
+#                 "{self.description}", "{self.gender}", "{self.gender}",\
+#                 "{self.age}", "{self.fixed}")"
 
 
 

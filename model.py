@@ -12,10 +12,13 @@ class User(db.Model):
     __tablename__ = "users"
 
     user_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    favorite_id = db.Column(db.Integer, db.ForeignKey("favorites.favorite_id"))
-    email = db.Column(db.String(30), nullable=True, unique = True)
-    password = db.Column(db.String(100), nullable=True)
-    home_location = db.Column(db.String(100), nullable=False)
+    first_name = db.Column(db.String(100), nullable=False)
+    last_name = db.Column(db.String(100), nullable=False)
+    email = db.Column(db.String(30), nullable=False, unique = True)
+    password = db.Column(db.String(100), nullable=False)
+    home_zipcode = db.Column(db.Integer, nullable=False)
+    phone_number = db.Column(db.Integer, nullable=False)
+    created_at = db.Column()
 
     favorites = db.relationship("Favorite",
                                 backref="users")
@@ -58,8 +61,9 @@ class Shelter(db.Model):
 
     shelter_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     shelter_name = db.Column(db.String(30), nullable=True, unique = True)
-    shelter_location = db.Column(db.String(100), nullable=False)
+    shelter_location_zipcode = db.Column(db.Integer, nullable=False)
     operation_hour = db.Column(db.String, nullable=False, default=datetime.today())
+
 
     def __repr__(self): 
         

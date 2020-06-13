@@ -1,7 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask
 from datetime import datetime, date
-from wekzeug.security import generate_password_hash, check_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash
 
 
 db = SQLAlchemy()
@@ -17,15 +17,14 @@ class User(db.Model):
     email = db.Column(db.String(30), nullable=False, unique = True)
     password = db.Column(db.String(100), nullable=False)
     home_zipcode = db.Column(db.Integer, nullable=False)
-    phone_number = db.Column(db.Integer, nullable=False)
-    created_at = db.Column()
+    phone_number = db.Column(db.String(12), nullable=False)
+    created_at = db.Column(db.DateTime, nullable=True, default=datetime.now())
 
-    favorites = db.relationship("Favorite",
-                                backref="users")
+    favorites = db.relationship("Favorite")
 
     def __repr__(self):
         """Provide user's information in a helpful format"""
-        return f"User("{self.first_name}", "{self.last_name}", "{self.email}")"
+        return f"<User first_name={self.first_name}, last_name={self.last_name}, email={self.email}>"
 
     def to_dict(self):
         return {"user_id": self.user_id,
@@ -44,20 +43,23 @@ class User(db.Model):
 class Favorite(db.Model):
     """Store favorite pets for each user"""
 
-    ___tablename__ = "favorites"
+    __tablename__ = "favorites"
 
     favorite_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    dogs_id = db.Column(db.Integer, db.ForeignKey("favorites.dogs_id"))
-    user_id = db.Column(db.Integer, db.ForeignKey("favorites.users_id"))
+    dog_id = db.Column(db.Integer, db.ForeignKey("dogs.dog_id"), nullable=True)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"), nullable=True)
 
-    # def __repr__(self): 
+    user = db.relationship("User")
+    dog = db.relationship("Dog")
+
+    def __repr__(self): 
         
-    #    return f"User("{self.dogs_id}")" # Review for later
+       return f"<Favorite dog_id={self.dog_id}, user_id={self.user_id}>" # Review for later
 
 class Shelter(db.Model):
     """Store shelter information"""
 
-    ___tablename__ = "shelters"
+    __tablename__ = "shelters"
 
     shelter_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     shelter_name = db.Column(db.String(30), nullable=True, unique = True)
@@ -67,45 +69,33 @@ class Shelter(db.Model):
 
     def __repr__(self): 
         
-        return f"Shelter("{self.shelter_name}", "{self.shelter_location}",\
-                "{self.operation_hour}")"
+        return f"<Shelter shelter_name={self.shelter_name}, shelter_location={self.shelter_location},\
+                operation_hour={self.operation_hour}>"
 
 
-# class Dog(db.Model):
-#     """Store dog information in each shelter"""
+class Dog(db.Model):
+    """Store dog information in each shelter"""
 
-#     __tablename__ = "dogs"
+    __tablename__ = "dogs"
 
-#     dog_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-#     shelter_id = db.Column(db.Integer, db.ForeignKey("shelters.shelter_id"))
-#     dob_breed = db.Column(db.String(30), nullable=True, unique = True)
-#     dog_photo_url = db.Column(db.String(1000), nullable=False)
-#     description = db.Column(db.String(200), nullable=True)
-#     gender = db.Column(db.String(30), nullable=True, unique = True)
-#     age = db.Column(db.Integer, nullable=True)
-#     fixed = db.Column(db.String(30), nullable=True, unique = True)
+    dog_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    shelter_id = db.Column(db.Integer, db.ForeignKey("shelters.shelter_id"))
+    dog_breed = db.Column(db.String(30), nullable=True)
+    dog_photo_url = db.Column(db.String(1000), nullable=False)
+    description = db.Column(db.String(200), nullable=True)
+    gender = db.Column(db.String(30), nullable=True)
+    age = db.Column(db.Integer, nullable=True)
+    fixed = db.Column(db.String(30), nullable=True)
 
-#     shelters = db.relationship("Shelter", backref="dogs")
+    shelter = db.relationship("Shelter", 
+                                backref="dogs")
+    favorites = db.relationship("Favorite")
 
-#     def __repr__(self): 
+    def __repr__(self): 
 
-#         return f"Dog("{self.dog_breed}", "{self.dog_photo_url}",\
-#                 "{self.description}", "{self.gender}", "{self.gender}",\
-#                 "{self.age}", "{self.fixed}")"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        return f"<Dog dog_breed={self.dog_breed}, dog_photo_url={self.dog_photo_url},\
+                description={self.description}, gender={self.gender},\
+                age={self.age}, fixed={self.fixed}>"
 
 
 def connect_to_db(app, db_uri="postgresql:///adoptme_db"):
@@ -114,7 +104,7 @@ def connect_to_db(app, db_uri="postgresql:///adoptme_db"):
     # Configure to use our PostgreSQL database
     app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    app.config['SQLALCHEMY_ECHO'] = True
+    app.config['SQLALCHEMY_ECHO'] = False
     db.app = app
     db.init_app(app)
 
@@ -125,5 +115,6 @@ if __name__ == "__main__":
     from server import app
 
     connect_to_db(app)
+    db.create_all()
     print("Connected to DB.")
 

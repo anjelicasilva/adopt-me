@@ -1,6 +1,6 @@
 # Adopt Me 🐾 
 ![](file:///Users/victorsi/Desktop/Screen%20Shot%202020-03-14%20at%2012.44.09%20AM.png)
-Adopt Me is a full-stack web application created by two recent Hackbright Academy graduates, Anjelica Silva and Linh Pham. <br>
+Adopt Me is a full-stack web application created by three recent Hackbright Academy graduates, Anjelica Silva, Linh Pham, and Dominique Cuevas. <br>
 
 💻 Deployment Link: TBA
 <br>

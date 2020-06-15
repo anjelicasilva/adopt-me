@@ -82,7 +82,7 @@ class Dog(db.Model):
     shelter_id = db.Column(db.Integer, db.ForeignKey("shelters.shelter_id"))
     dog_breed = db.Column(db.String(30), nullable=False)
     dog_photo_url = db.Column(db.String(1000), nullable=True)
-    description = db.Column(db.String(200), nullable=False)
+    description = db.Column(db.String(200), nullable=True)
     gender = db.Column(db.String(30), nullable=False)
     age = db.Column(db.Integer, nullable=False)
     fixed = db.Column(db.Boolean, nullable=False)

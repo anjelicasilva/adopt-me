@@ -80,12 +80,12 @@ class Dog(db.Model):
 
     dog_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     shelter_id = db.Column(db.Integer, db.ForeignKey("shelters.shelter_id"))
-    dog_breed = db.Column(db.String(30), nullable=True)
-    dog_photo_url = db.Column(db.String(1000), nullable=False)
-    description = db.Column(db.String(200), nullable=True)
-    gender = db.Column(db.String(30), nullable=True)
-    age = db.Column(db.Integer, nullable=True)
-    fixed = db.Column(db.String(30), nullable=True)
+    dog_breed = db.Column(db.String(30), nullable=False)
+    dog_photo_url = db.Column(db.String(1000), nullable=True)
+    description = db.Column(db.String(200), nullable=False)
+    gender = db.Column(db.String(30), nullable=False)
+    age = db.Column(db.Integer, nullable=False)
+    fixed = db.Column(db.Boolean, nullable=False)
 
     shelter = db.relationship("Shelter", 
                                 backref="dogs")

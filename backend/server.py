@@ -34,6 +34,8 @@ def get_response_data(url, token, payload):
 
 @app.route('/breeds.json')
 def get_all_breeds():
+
+    ### EXAMPLE DOG BREED SELECTION ###
     breed_type = 'dog'
     token = get_token()
     url = 'https://api.petfinder.com/v2/types/'+ breed_type +'/breeds'
@@ -48,7 +50,26 @@ def get_all_breeds():
 
     return jsonify(breeds)
 
-    
+
+@app.route('/locations.json')
+def get_all_locations():
+
+    #### EXAMPLE BRISBANE ZIP CODE ####
+    location_type = '94005'
+    token = get_token()
+    url = 'https://api.petfinder.com/v2/organizations/'
+    headers = {'Authorization': token}
+    payload = {'location': location_type}
+    response = requests.get(url, headers=headers, params=payload)
+    data = response.json()
+    organizations = {}
+    organizations['name'] = []
+    for organization in data['organizations']:
+        organizations['name'].append(organization['name'])
+
+    return jsonify(organizations)
+
+
 #############################################
 
 if __name__ == '__main__':

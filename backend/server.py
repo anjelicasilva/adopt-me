@@ -31,6 +31,23 @@ def get_response_data(url, token, payload):
     data = response.json()
     return data
 
+
+@app.route('/breeds.json')
+def get_all_breeds():
+    breed_type = 'dog'
+    token = get_token()
+    url = 'https://api.petfinder.com/v2/types/'+ breed_type +'/breeds'
+    payload = {
+        'type': breed_type
+    }
+    data = get_response_data(url, token, payload)
+    breeds = {}
+    breeds['breeds'] = []
+    for breed in data['breeds']:
+        breeds['breeds'].append(breed['name'])
+
+    return jsonify(breeds)
+
     
 #############################################
 

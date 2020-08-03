@@ -25,6 +25,13 @@ def get_token():
     return token
 
 
+def get_response_data(url, token, payload):
+    headers = {'Authorization': token}
+    response = requests.get(url, headers=headers, params=payload)
+    data = response.json()
+    return data
+
+    
 #############################################
 
 if __name__ == '__main__':

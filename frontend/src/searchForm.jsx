@@ -45,6 +45,18 @@ class SearchForm extends React.Component {
                     <label>
                     <input type="submit" value="Search" onClick={this.handleSubmit}></input>
                     </label>
+{/* Change to checkboxes */}
+                    <br></br>
+                    <label>
+                        Size:
+                        <select name="selectedSize" value={this.state.selectedSize} onChange={this.handleChange}>
+                            <option value ="small">Small</option>
+                            <option value="medium">Medium</option>
+                            <option value="large">Large</option>
+                            <option value="xlarge">Extra Large</option>
+                        </select>
+                    </label>
+{/*  */}
                 </form>
             </div>
         );

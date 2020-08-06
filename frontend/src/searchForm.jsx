@@ -42,9 +42,6 @@ class SearchForm extends React.Component {
                             <option value="rabbit">Rabbit</option>
                         </select>
                     </label>
-                    <label>
-                    <input type="submit" value="Search" onClick={this.handleSubmit}></input>
-                    </label>
 {/* Change to checkboxes */}
                     <br></br>
                     <label>
@@ -116,6 +113,34 @@ class SearchForm extends React.Component {
                             onChange={this.handleChange}
                         />
                     Not Required
+                    </label>
+                    <br></br>
+                    <label>
+                        Good with Dogs:
+                    </label>
+                    <label>
+                        <input 
+                            type="radio"
+                            name="isGoodWithDogs"
+                            value="true"
+                            checked={this.state.isGoodWithDogs==="true"}
+                            onChange={this.handleChange}
+                        />
+                    Required
+                    </label>
+                    <label>
+                        <input 
+                            type="radio"
+                            name="isGoodWithDogs"
+                            value="false"
+                            checked={this.state.isGoodWithDogs==="false"}
+                            onChange={this.handleChange}
+                        />
+                    Not Required
+                    </label>
+                    <br></br>
+                    <label>
+                    <input type="submit" value="Search" onClick={this.handleSubmit}></input>
                     </label>
                 </form>
             </div>

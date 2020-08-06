@@ -164,6 +164,17 @@ class SearchForm extends React.Component {
                     </label>
                     <br></br>
                     <label>
+                        Location:
+                    </label>
+                    <label>
+                        <input
+                            type="text"
+                            name="selectedLocation"
+                            onChange={this.handleChange}
+                        />
+                    </label>
+                    <br></br>
+                    <label>
                     <input type="submit" value="Search" onClick={this.handleSubmit}></input>
                     </label>
                 </form>

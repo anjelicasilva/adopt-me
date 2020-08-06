@@ -81,6 +81,18 @@ class SearchForm extends React.Component {
                         />
                     Male
                     </label>
+{/* Change to checkboxes */}
+                    <br></br>
+                    <label>
+                        Age:
+                        <select name="selectedAge" value={this.state.selectedAge} onChange={this.handleChange}>
+                            <option value ="baby">Baby</option>
+                            <option value="young">Young</option>
+                            <option value="adult">Adult</option>
+                            <option value="senior">Senior</option>
+                        </select>
+                    </label>
+{/*  */}
                 </form>
             </div>
         );

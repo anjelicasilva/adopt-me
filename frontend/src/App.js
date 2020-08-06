@@ -1,18 +1,12 @@
 import React from 'react';
 import './App.css';
+import SearchForm from './searchForm';
 
 function App() {
-  
-  fetch("/test")
-    .then(response => response.json())
-    .then(data => {console.log(data)
-    });
-
-  
 
   return (
     <div className="App">
-      Welcome!
+      <SearchForm />
     </div>
   );
 }

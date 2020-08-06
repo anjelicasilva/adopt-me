@@ -57,6 +57,30 @@ class SearchForm extends React.Component {
                         </select>
                     </label>
 {/*  */}
+                    <br></br>
+                    <label>
+                        Gender:
+                    </label>
+                    <label>
+                        <input 
+                            type="radio"
+                            name="selectedGender"
+                            value="female"
+                            checked={this.state.selectedGender==="female"}
+                            onChange={this.handleChange}
+                        />
+                    Female
+                    </label>
+                    <label>
+                        <input 
+                            type="radio"
+                            name="selectedGender"
+                            value="male"
+                            checked={this.state.selectedGender==="male"}
+                            onChange={this.handleChange}
+                        />
+                    Male
+                    </label>
                 </form>
             </div>
         );

@@ -93,6 +93,30 @@ class SearchForm extends React.Component {
                         </select>
                     </label>
 {/*  */}
+                    <br></br>
+                    <label>
+                        Good with Children:
+                    </label>
+                    <label>
+                        <input 
+                            type="radio"
+                            name="isGoodWithChildren"
+                            value="true"
+                            checked={this.state.isGoodWithChildren==="true"}
+                            onChange={this.handleChange}
+                        />
+                    Required
+                    </label>
+                    <label>
+                        <input 
+                            type="radio"
+                            name="isGoodWithChildren"
+                            value="false"
+                            checked={this.state.isGoodWithChildren==="false"}
+                            onChange={this.handleChange}
+                        />
+                    Not Required
+                    </label>
                 </form>
             </div>
         );

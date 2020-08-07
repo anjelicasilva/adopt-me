@@ -175,6 +175,16 @@ class SearchForm extends React.Component {
                     </label>
                     <br></br>
                     <label>
+                        Distance:
+                        <select name="selectedDistance" value={this.state.selectedDistance} onChange={this.handleChange}>
+                            <option value ="5">5 miles</option>
+                            <option value="10">10 miles</option>
+                            <option value="25">25 miles</option>
+                            <option value="50">50 miles</option>
+                        </select>
+                    </label>
+                    <br></br>
+                    <label>
                     <input type="submit" value="Search" onClick={this.handleSubmit}></input>
                     </label>
                 </form>

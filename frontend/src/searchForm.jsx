@@ -42,6 +42,148 @@ class SearchForm extends React.Component {
                             <option value="rabbit">Rabbit</option>
                         </select>
                     </label>
+{/* Change to checkboxes */}
+                    <br></br>
+                    <label>
+                        Size:
+                        <select name="selectedSize" value={this.state.selectedSize} onChange={this.handleChange}>
+                            <option value ="small">Small</option>
+                            <option value="medium">Medium</option>
+                            <option value="large">Large</option>
+                            <option value="xlarge">Extra Large</option>
+                        </select>
+                    </label>
+{/*  */}
+                    <br></br>
+                    <label>
+                        Gender:
+                    </label>
+                    <label>
+                        <input 
+                            type="radio"
+                            name="selectedGender"
+                            value="female"
+                            checked={this.state.selectedGender==="female"}
+                            onChange={this.handleChange}
+                        />
+                    Female
+                    </label>
+                    <label>
+                        <input 
+                            type="radio"
+                            name="selectedGender"
+                            value="male"
+                            checked={this.state.selectedGender==="male"}
+                            onChange={this.handleChange}
+                        />
+                    Male
+                    </label>
+{/* Change to checkboxes */}
+                    <br></br>
+                    <label>
+                        Age:
+                        <select name="selectedAge" value={this.state.selectedAge} onChange={this.handleChange}>
+                            <option value ="baby">Baby</option>
+                            <option value="young">Young</option>
+                            <option value="adult">Adult</option>
+                            <option value="senior">Senior</option>
+                        </select>
+                    </label>
+{/*  */}
+                    <br></br>
+                    <label>
+                        Good with Children:
+                    </label>
+                    <label>
+                        <input 
+                            type="radio"
+                            name="isGoodWithChildren"
+                            value="true"
+                            checked={this.state.isGoodWithChildren==="true"}
+                            onChange={this.handleChange}
+                        />
+                    Required
+                    </label>
+                    <label>
+                        <input 
+                            type="radio"
+                            name="isGoodWithChildren"
+                            value="false"
+                            checked={this.state.isGoodWithChildren==="false"}
+                            onChange={this.handleChange}
+                        />
+                    Not Required
+                    </label>
+                    <br></br>
+                    <label>
+                        Good with Dogs:
+                    </label>
+                    <label>
+                        <input 
+                            type="radio"
+                            name="isGoodWithDogs"
+                            value="true"
+                            checked={this.state.isGoodWithDogs==="true"}
+                            onChange={this.handleChange}
+                        />
+                    Required
+                    </label>
+                    <label>
+                        <input 
+                            type="radio"
+                            name="isGoodWithDogs"
+                            value="false"
+                            checked={this.state.isGoodWithDogs==="false"}
+                            onChange={this.handleChange}
+                        />
+                    Not Required
+                    </label>
+                    <br></br>
+                    <label>
+                        Good with Cats:
+                    </label>
+                    <label>
+                        <input 
+                            type="radio"
+                            name="isGoodWithCats"
+                            value="true"
+                            checked={this.state.isGoodWithCats==="true"}
+                            onChange={this.handleChange}
+                        />
+                    Required
+                    </label>
+                    <label>
+                        <input 
+                            type="radio"
+                            name="isGoodWithCats"
+                            value="false"
+                            checked={this.state.isGoodWithCats==="false"}
+                            onChange={this.handleChange}
+                        />
+                    Not Required
+                    </label>
+                    <br></br>
+                    <label>
+                        Location:
+                    </label>
+                    <label>
+                        <input
+                            type="text"
+                            name="selectedLocation"
+                            onChange={this.handleChange}
+                        />
+                    </label>
+                    <br></br>
+                    <label>
+                        Distance:
+                        <select name="selectedDistance" value={this.state.selectedDistance} onChange={this.handleChange}>
+                            <option value ="5">5 miles</option>
+                            <option value="10">10 miles</option>
+                            <option value="25">25 miles</option>
+                            <option value="50">50 miles</option>
+                        </select>
+                    </label>
+                    <br></br>
                     <label>
                     <input type="submit" value="Search" onClick={this.handleSubmit}></input>
                     </label>

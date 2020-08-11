@@ -4,42 +4,73 @@ from pprint import pprint
 
 url_base = "https://api.petfinder.com"
 
-def get_token():
-    url = url_base + '/v2/oauth2/token'
-    data = {'grant_type': 'client_credentials',
-            'client_id': os.environ['CLIENT_ID'],
-            'client_secret': os.environ['CLIENT_SECRET']}
-    response = requests.post(url, data=data)
-    res = response.json()
-    token = res['token_type'] + ' ' + res['access_token']
-    return token
+CLIENT_ID = os.environ.get("CLIENT_ID")
+CLIENT_SECRET = os.environ.get("CLIENT_SECRET")
 
-def get_response_data(url, token, **payload):
-    headers = {'Authorization': token}
-    # if not payload:
-    #     payload = {}
-    response = requests.get(url, headers=headers, params=payload)
-    data = response.json()
-    # Todo: pagination, handle rate limit of 1000/day and 50/second
-    # if 'pagination' in data and data['pagination'].get('current_page')!=data['pagination'].get('total_pages'):
-    #     payload['page'] = data.get('current_page',0) + 1
-    #     token = token()
-    #     data = get_response_data(url, token=token, payload=params)
-    #     data = response.json()
-    return data
+def get_token():    
+    url = url_base + "/v2/oauth2/token"
+    payload = {
+        "grant_type": "client_credentials",
+        "client_id": CLIENT_ID,
+        "client_secret": CLIENT_SECRET,
+        }
+    r = requests.post(
+        url=url,
+        data=payload
+    )
+    data = r.json()
+    return data['access_token']
 
+TOKEN = get_token()
+
+def decorator_request(func):
+    def _decorator_request(**kwargs):
+        kwargs = func(**kwargs)
+        headers = {
+            "Authorization": f"Bearer {TOKEN}",
+        }
+        r = requests.get(
+            url=kwargs['url'], 
+            headers=headers,
+            params=kwargs['payload'],
+        )
+        data = r.json()
+        return data
+    return _decorator_request
+
+@decorator_request
 def get_animals(id=None, **kwargs):
-    token = get_token()
-    print('kwargs:', kwargs)
     url = url_base + "/v2/animals"
     if id:
         url = url + f"/{id}"
-    return get_response_data(url, token, payload=kwargs)
+    return {'url': url, 'payload': kwargs}
 
+# params = {'type': 'dog', 'gender': 'male', 'age': 'baby', 'size': 'large'}
+# pprint(get_animals(**params))
+# pprint(get_animals(id=48605066))
+# pprint(get_animals())
+
+@decorator_request
+def get_animal_types(type=None):
+    url = url_base + "/v2/types"
+    if type:
+        url = url + f"/{type}"
+    return {'url': url, 'payload': {}}
+
+# pprint(get_animal_types())
+# pprint(get_animal_types(type='rabbit'))
+
+@decorator_request
+def get_animal_breeds(type=None):
+    url = url_base + "/v2/types/{type}/breeds"    
+    return {'url': url, 'payload': {}}
+
+# pprint(get_animal_breeds(type='cat'))
+
+@decorator_request
 def get_organizations(**kwargs):
-    token = get_token()
     if 'href' in kwargs:
         url = url_base + kwargs.get('href')
     else:
         url = url_base + "/v2/organizations"
-    return get_response_data(url, token)
+    return {'url': url, 'payload': kwargs}

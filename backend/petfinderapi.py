@@ -14,22 +14,33 @@ def get_token():
     token = res['token_type'] + ' ' + res['access_token']
     return token
 
-def get_response_data(url, token, payload=None):
+def get_response_data(url, **kwargs):
+    token = get_token()
+    print('url:', url)
+    print('payload:', kwargs)
     headers = {'Authorization': token}
-    response = requests.get(url, headers=headers, params=payload)
+    # if not payload:
+    #     payload = {}
+    response = requests.get(url=url, headers=headers, params=kwargs['payload'])
     data = response.json()
+    # Todo: pagination, handle rate limit of 1000/day and 50/second
+    # if 'pagination' in data and data['pagination'].get('current_page')!=data['pagination'].get('total_pages'):
+    #     payload['page'] = data.get('current_page',0) + 1
+    #     token = token()
+    #     data = get_response_data(url, token=token, payload=params)
+    #     data = response.json()
     return data
 
 def get_animals(id=None, **kwargs):
-    token = get_token()
+    # print('kwargs:', kwargs)
     url = url_base + "/v2/animals"
     if id:
         url = url + f"/{id}"
-    return get_response_data(url, token, payload=kwargs)
+    return get_response_data(url=url, payload=kwargs)
 
-def get_organization(href):
-    token = get_token()
-    url = url_base + href
-    return get_response_data(url, token)
-
-pprint(get_organization("/v2/organizations/ia36"))
+def get_organizations(**kwargs):
+    if 'href' in kwargs:
+        url = url_base + kwargs.get('href')
+    else:
+        url = url_base + "/v2/organizations"
+    return get_response_data(url)
